@@ -3,13 +3,18 @@ error_reporting(E_ALL || E_NOTICE);
 ini_set("display_errors", true);
 
 require_once("slim/Slim.php");
+require_once("slim/Http/Response.php");
 require_once("classes/Database.class.php");
 require_once("classes/User.class.php");
 require_once("classes/Messages.class.php");
 
-$app = new Slim(array(
-	'mode' => "development"
-	));
+$app = new \Slim(array(
+    'mode' => 'development',
+    'debug' => true,
+));
+
+
+#$res = new \Slim\Http\Response();
 
 $app->get('/', function() use ($app){
 	echo "Hello world";
@@ -32,6 +37,9 @@ $app->get('/messages', function() use($app){
 
 $app->get('/message/:messageid', function($messageid) use($app){
 	$messages = new Messages();
+	if(!is_numeric($messageid)){
+		$app->response()->status(501);
+	};
 	$messageData = $messages->getMessageByID($messageid);
 	echo json_encode($messageData);
 });
@@ -53,7 +61,15 @@ $app->post('/message/new', function() use($app){
 		exit();
 	}
 	$result = $message->postMessage($userid, $content, $title);
-	echo $result;
+	$result = false;
+	if($result){
+		$app->response()->status(201);
+		echo $result;
+	}else{
+		$app->response()->status(500);
+	}
+
+	
 });
 
 $app->run();
