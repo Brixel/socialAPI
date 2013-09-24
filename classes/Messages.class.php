@@ -15,7 +15,12 @@ class Messages{
 		$sql = "SELECT * FROM `messages` WHERE `id` = :messageID";
 		$param = array("messageID" => $messageID);
 		$results = $this->db->doQuery($sql, $param);
-		return $results;
+		if(empty($results)){
+			return array("No results found", "No data found for this query");
+		}else{
+			return $results;
+		}
+		
 	}
 
 	function postMessage($userid, $content, $title){

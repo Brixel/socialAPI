@@ -1,4 +1,5 @@
 <?php
+session_start();
 error_reporting(E_ALL || E_NOTICE);
 ini_set("display_errors", true);
 
@@ -28,11 +29,15 @@ $app->get('/user/:userid', function($userid) use($app){
 	
 });
 
-$app->get('/messages', function() use($app){
+$app->get('/messages/', function() use($app){
 	$messages = new Messages();
 	$messageData = $messages->getMessages();
 	echo json_encode($messageData);
 
+});
+
+$app->get('/message/', function() use ($app){
+	echo json_encode(array("Missing parameter", "Please give a ID-parameter (NUMBER)"));
 });
 
 $app->get('/message/:messageid', function($messageid) use($app){

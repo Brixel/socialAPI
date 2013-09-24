@@ -29,7 +29,7 @@ class User {
 		$sql = "SELECT * FROM users WHERE id = :id LIMIT 1";
 		$param = array(":id" => $id);
 		foreach($this->db->doQuery($sql, $param) as $user){
-			$_SESSION['user']['userid'] = $user['id'];
+			$_SESSION['user']['userid'] = $user->id;
 			return $user;
 		}
 	}

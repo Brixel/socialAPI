@@ -1,0 +1,73 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<link type="text/css" href="../css/jquery-ui-1.8.19.custom.css" rel="stylesheet"/>
+		<style type="text/css">
+			#messageDisplay{
+				background-color: #fc3;
+			}
+		</style>
+		<script src="../js/jquery-1.7.2.min.js" type="text/javascript"></script>
+		<script src="../js/jquery-ui-1.8.19.custom.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				
+				$("#loadMessage").button().click(function(event){
+
+					//console.log("Hit");
+					$.ajax({
+						url: 'http://localhost/socialAPI/messages',
+						type: 'GET',
+						dataType: 'json',
+						success: function(jsonData){
+							//parsedJson = $.parseJSON(jsonData);
+							var messageContainer = $("#messageContainer");
+							for (var i = 0; i < jsonData.length; i++) {
+								//console.log(jsonData[i]);
+								message = ("<p data-message-id='"+jsonData[i].id+"'>"+jsonData[i].postdate + "</a>|" + 
+									jsonData[i].content+"</p>");
+								messageContainer.append(message);
+
+							};
+							
+						}
+					});
+				});
+
+				$("#messageContainer p").live("click", function(event){
+					event.preventDefault();
+					postID = event.currentTarget.attributes[0].value;
+					$.ajax({
+						url: 'http://localhost/socialAPI/message/'+postID,
+						type: 'GET',
+						dataType: 'json',
+						success: function(json){
+							for (var i = 0; i < json.length; i++) {
+								console.log(json[i]);
+								$("#messageDisplay").append("<p>"+json[i].postdate+" | "+json[i].content+"</p>");
+							};
+						}
+					})
+					$("#messageDisplay").dialog({
+						height: 300,
+						width: 400,
+						resizable: false,
+						background: "#fc3",
+						title: "Message"
+					})
+					$("#messageDisplay").show();
+				})
+			});
+		</script>
+	</head>
+	<body>
+		<nav>
+			<a href="./">Home</a>
+		</nav>
+		<button id="loadMessage">Load messages</button>
+		<div id="messageContainer">
+		</div>
+		<div id="messageDisplay">
+		</div>
+	</body>
+</html>
