@@ -23,7 +23,7 @@ Returns "Hello world"
 ```
 GET /messages
 ```
-Returns all messages in the database
+Returns all messages in the database, without limit
 
 ```
 GET /message/<messageid>
