@@ -3,9 +3,9 @@
 		private $database, $username, $password, $pdo;
 		
 		function __construct() {
-			$this->database = "socialAPI";
-			$this->username = "berend";
-			$this->password = "h4rrh4rr";
+			$this->database = "";
+			$this->username = "";
+			$this->password = "";
 			try{
 				$this->pdo = new PDO('mysql:host=localhost;dbname='.$this->database, $this->username, $this->password);
 				$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
