@@ -1,0 +1,38 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title>Demofunctions for the socialAPI</title>
+		<link type="text/css" href="../css/jquery-ui-1.8.19.custom.css" rel="stylesheet"/>
+		<style type="text/css">
+			#container{
+				width: 960px;
+				border: 3px dashed #ff3;
+			}
+			.function{
+				border: 2px dashed #43f;
+				margin: 4px;
+				padding: 8px;
+			}
+		</style>
+		<script src="../js/jquery-1.7.2.min.js" type="text/javascript"></script>
+		<script src="../js/jquery-ui-1.8.19.custom.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("a[href='loadMessages.html']").button();
+			});
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div class="function">
+				<h2>Load function</h2>
+				<p>This function show how you load (some of) the messages from the API, using AJAX.</p>
+				<p>Special: GET</p>
+				<a href="loadMessages.html">Load messages from API</a>
+			</div>
+			<div class="function">
+				<h2>Dummy function</h2>
+			</div>
+		</div>
+	</body>
+</html>

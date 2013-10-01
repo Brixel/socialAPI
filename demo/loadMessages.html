@@ -1,10 +1,14 @@
 <!DOCTYPE html5>
 <html>
 	<head>
+		<title>Load messages from API</title>
 		<link type="text/css" href="../css/jquery-ui-1.8.19.custom.css" rel="stylesheet"/>
 		<style type="text/css">
 			#messageDisplay{
 				background-color: #fc3;
+			}
+			#usage{
+				width: 960px;
 			}
 		</style>
 		<script src="../js/jquery-1.7.2.min.js" type="text/javascript"></script>
@@ -64,6 +68,35 @@
 		<nav>
 			<a href="./">Home</a>
 		</nav>
+		<div id="usage">
+			<p>Javascript (jQuery)</p>
+			<p>Parameters</p>
+			<pre>
+url: 'http://localhost/socialAPI/messages',
+type: 'GET',
+dataType: 'json'
+			</pre>
+			<p>Full example</p>
+			<pre>
+$.ajax({
+	url: 'http://localhost/socialAPI/messages',
+	type: 'GET',
+	dataType: 'json',
+	success: function(jsonData){
+		//parsedJson = $.parseJSON(jsonData);
+		var messageContainer = $("#messageContainer");
+		for (var i = 0; i < jsonData.length; i++) {
+			//console.log(jsonData[i]);
+			message = ("<p data-message-id='"+jsonData[i].id+"'>"+jsonData[i].postdate + "</a>|" + 
+				jsonData[i].content+"</p>");
+			messageContainer.append(message);
+
+		};
+		
+	}
+});
+				</pre>
+		</div>
 		<button id="loadMessage">Load messages</button>
 		<div id="messageContainer">
 		</div>
