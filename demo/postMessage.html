@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<title>Post messages to the API</title>
+		<link type="text/css" href="../css/jquery-ui-1.8.19.custom.css" rel="stylesheet"/>
+		<script src="../js/jquery-1.7.2.min.js" type="text/javascript"></script>
+		<script src="../js/jquery-ui-1.8.19.custom.min.js" type="text/javascript"></script>
+		<style type="text/css">
+			#messageDisplay{
+				background-color: #fc3;
+			}
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#post").button().click(function(){
+					userid = $("#userid").val();
+					title = $("#title").val();
+					content = $("#content").val();
+					//alert("Title: "+title+" UserID: "+ userid + " Content: "+content);
+					$.ajax({
+						url: "http://localhost/socialAPI/message/new",
+						data: {"userID": userid, "content": content, "title":title},
+						type: "POST",
+						datatype: "JSON",
+						success: function(data){
+							var json = $.parseJSON(data);
+							if(json.meta == "S200"){
+								// Success
+								$("#userid, #title, #content").val("")
+								$("#errorMessage p").text("Message posted succesfully");
+								$("#errorMessage").dialog("open");
+							}else if(json == "S503"){
+								// Missing userID
+								$("#userid").focus();
+								$("#errorMessage p").text("Input userid");
+								$("#errorMessage").dialog("open");
+							}else if(json == "S502"){
+								$("#title").focus();
+								$("#errorMessage p").text("Input title");
+								$("#errorMessage").dialog("open");
+							}else if(json == "S501"){
+								$("#content").focus();
+								$("#errorMessage p").text("Input message");
+								$("#errorMessage").dialog("open");
+							}
+						}
+					})
+				});
+				$("#errorMessage").dialog({
+						height: 300,
+						width: 400,
+						resizable: false,
+						background: "#fc3",
+						title: "Message",
+						autoshow: false
+				});
+				$("#errorMessage").dialog("close");
+				
+			});
+		</script>
+	</head>
+	<body>
+		<div>
+			<label for="userid">UserID</label><input type="text" id="userid" />
+			<label for="title">Titel</label><input type="text" id="title" />
+			<label for="content">Content</label><textarea id="content"></textarea>
+			<button id="post">Post message</button>
+		</div>
+		
+	</body>
+	<div id="errorMessage">
+		<p></p>
+	</div>
+</html>

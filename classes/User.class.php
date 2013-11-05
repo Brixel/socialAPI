@@ -25,11 +25,13 @@ class User {
 		return $this->db->doQuery($sql, $param);
 	}
 
+
+	// TODO: Adds exceptions if no user with given id has been found
 	function find_by_id( $id ){
 		$sql = "SELECT * FROM users WHERE id = :id LIMIT 1";
 		$param = array(":id" => $id);
 		foreach($this->db->doQuery($sql, $param) as $user){
-			$_SESSION['user']['userid'] = $user->id;
+			// $_SESSION['user']['userid'] = $user->id;
 			return $user;
 		}
 	}

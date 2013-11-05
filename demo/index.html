@@ -18,17 +18,26 @@
 		<script src="../js/jquery-ui-1.8.19.custom.min.js" type="text/javascript"></script>
 		<script type="text/javascript">
 			$(document).ready(function(){
-				$("a[href='loadMessages.html']").button();
+				$("a[href='loadMessages.html'], a[href='postMessage.html']").button();
+
 			});
+
 		</script>
 	</head>
 	<body>
 		<div id="container">
 			<div class="function">
 				<h2>Load function</h2>
-				<p>This function show how you load (some of) the messages from the API, using AJAX.</p>
+				<p>This function shows how you load (some of) the messages from the API, using AJAX.</p>
 				<p>Special: GET</p>
 				<a href="loadMessages.html">Load messages from API</a>
+			</div>
+			<div class="function">
+				<h2>Load function</h2>
+				<p>This function demonstrates how to post to the API, again using AJAX</p>
+				<p>Special: POST</p>
+				<a href="postMessage.html">Post message to API</a>
+
 			</div>
 			<div class="function">
 				<h2>Dummy function</h2>
